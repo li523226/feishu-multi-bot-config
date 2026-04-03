@@ -1,0 +1,138 @@
+{
+  "agents": {
+    "list": [
+      {
+        "id": "main",
+        "name": "主Agent",
+        "default": true,
+        "workspace": "~/.openclaw/workspace-main",
+        "model": {
+          "primary": "ark/doubao"
+        },
+        "sharedSkills": true,
+        "sharedPermissions": true,
+        "dataIsolation": {
+          "enabled": false,
+          "sharedTypes": []
+        }
+      },
+      {
+        "id": "customer-service",
+        "name": "客服Agent",
+        "workspace": "~/.openclaw/workspace-cs",
+        "model": {
+          "primary": "ark/gpt-4"
+        },
+        "sharedSkills": true,
+        "sharedPermissions": true,
+        "dataIsolation": {
+          "enabled": true,
+          "sharedTypes": ["conversation_memory", "user_preferences"]
+        }
+      },
+      {
+        "id": "sales",
+        "name": "销售Agent",
+        "workspace": "~/.openclaw/workspace-sales",
+        "model": {
+          "primary": "ark/doubao"
+        },
+        "sharedSkills": true,
+        "sharedPermissions": true,
+        "dataIsolation": {
+          "enabled": false,
+          "sharedTypes": []
+        }
+      },
+      {
+        "id": "technical",
+        "name": "技术Agent",
+        "workspace": "~/.openclaw/workspace-tech",
+        "model": {
+          "primary": "ark/deepseek"
+        },
+        "sharedSkills": true,
+        "sharedPermissions": true,
+        "dataIsolation": {
+          "enabled": true,
+          "sharedTypes": ["all"]
+        }
+      }
+    ]
+  },
+  "session": {
+    "dmScope": "per-account-channel-peer"
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "threadSession": true,
+      "replyMode": "auto",
+      "appId": "cli_default_xxx",
+      "appSecret": "default_secret_xxx",
+      "accounts": {
+        "default": {},
+        "customer-service": {
+          "appId": "cli_cs_xxx",
+          "appSecret": "cs_secret_xxx",
+          "botName": "客服机器人",
+          "dmPolicy": "allowlist",
+          "allowFrom": ["ou_5b990e213988b9bcf396f955a50b2a22"]
+        },
+        "sales": {
+          "appId": "cli_sales_xxx",
+          "appSecret": "sales_secret_xxx",
+          "botName": "销售机器人",
+          "dmPolicy": "open",
+          "allowFrom": ["*"]
+        },
+        "technical": {
+          "appId": "cli_tech_xxx",
+          "appSecret": "tech_secret_xxx",
+          "botName": "技术机器人",
+          "dmPolicy": "allowlist",
+          "allowFrom": ["ou_tech_001", "ou_tech_002"]
+        }
+      },
+      "groups": {
+        "*": {
+          "requireMention": true
+        },
+        "oc_support_group_123": {
+          "requireMention": false,
+          "groupPolicy": "open"
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "feishu",
+        "accountId": "default"
+      }
+    },
+    {
+      "agentId": "customer-service",
+      "match": {
+        "channel": "feishu",
+        "accountId": "customer-service"
+      }
+    },
+    {
+      "agentId": "sales",
+      "match": {
+        "channel": "feishu",
+        "accountId": "sales"
+      }
+    },
+    {
+      "agentId": "technical",
+      "match": {
+        "channel": "feishu",
+        "accountId": "technical"
+      }
+    }
+  ]
+}

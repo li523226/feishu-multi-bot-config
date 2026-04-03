@@ -1,0 +1,48 @@
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# OpenClaw
+*.log
+*.pid
+openclaw.state/
+workspace/
+
+# Secrets
+*.env
+*.key
+*.pem
+*.crt
+*.secret
+config.json
+
+# Test files
+test_output/
+*.test
+
+# Temp files
+.tmp/
+tmp/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
